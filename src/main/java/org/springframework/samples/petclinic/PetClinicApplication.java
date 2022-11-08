@@ -16,18 +16,18 @@
 
 package org.springframework.samples.petclinic;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.samples.petclinic.vet.SpecialityRepository;
-import org.springframework.samples.petclinic.vet.Specialty;
-import org.springframework.samples.petclinic.vet.Vet;
-import org.springframework.samples.petclinic.vet.VetRepository;
+import org.springframework.samples.petclinic.vet.DAO.SpecialityRepository;
+import org.springframework.samples.petclinic.vet.DTO.Specialty;
+import org.springframework.samples.petclinic.vet.DTO.Vet;
+import org.springframework.samples.petclinic.vet.DAO.VetRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * PetClinic Spring Boot Application.
@@ -35,10 +35,10 @@ import java.util.logging.Logger;
  * @author Dave Syer
  *
  */
+@Slf4j
 @SpringBootApplication
 public class PetClinicApplication {
 
-	private final static Logger log = Logger.getLogger("log");
 	public static void main(String[] args) {
 
 		SpringApplication.run(PetClinicApplication.class, args);

@@ -13,10 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.owner;
+package org.springframework.samples.petclinic.owner.Controllers;
 
 import java.util.Collection;
 import javax.validation.Valid;
+
+import org.springframework.samples.petclinic.owner.DAO.OwnerRepository;
+import org.springframework.samples.petclinic.owner.DTO.Owner;
+import org.springframework.samples.petclinic.owner.DTO.Pet;
+import org.springframework.samples.petclinic.owner.DTO.PetType;
+import org.springframework.samples.petclinic.owner.PetValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -36,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/owners/{ownerId}")
+public
 class PetController {
 
 	private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
@@ -58,7 +65,7 @@ class PetController {
 
 	@ModelAttribute("pet")
 	public Pet findPet(@PathVariable("ownerId") int ownerId,
-			@PathVariable(name = "petId", required = false) Integer petId) {
+					   @PathVariable(name = "petId", required = false) Integer petId) {
 		return petId == null ? new Pet() : this.owners.findById(ownerId).getPet(petId);
 	}
 
