@@ -16,10 +16,11 @@
 package org.springframework.samples.petclinic.owner.DTO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -39,8 +40,11 @@ public class Visit extends BaseEntity {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 
+
 	@NotEmpty
 	private String description;
+
+
 
 	/**
 	 * Creates a new instance of Visit for the current date

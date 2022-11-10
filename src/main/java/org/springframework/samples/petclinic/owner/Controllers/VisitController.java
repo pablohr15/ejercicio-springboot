@@ -15,22 +15,23 @@
  */
 package org.springframework.samples.petclinic.owner.Controllers;
 
+import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.springframework.samples.petclinic.owner.DAO.OwnerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.owner.DTO.Bill;
 import org.springframework.samples.petclinic.owner.DTO.Owner;
 import org.springframework.samples.petclinic.owner.DTO.Pet;
 import org.springframework.samples.petclinic.owner.DTO.Visit;
+import org.springframework.samples.petclinic.owner.Services.BillService;
+import org.springframework.samples.petclinic.owner.Services.OwnerService;
+import org.springframework.samples.petclinic.owner.Services.VisitService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Juergen Hoeller
@@ -43,11 +44,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public
 class VisitController {
 
-	private final OwnerRepository owners;
+	@Autowired
+	private VisitService visits;
+	@Autowired
+	private OwnerService owners;
 
-	public VisitController(OwnerRepository owners) {
-		this.owners = owners;
-	}
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
@@ -64,7 +65,7 @@ class VisitController {
 	@ModelAttribute("visit")
 	public Visit loadPetWithVisit(@PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId,
 								  Map<String, Object> model) {
-		Owner owner = this.owners.findById(ownerId);
+		Owner owner = this.owners.findOwner(ownerId);
 
 		Pet pet = owner.getPet(petId);
 		model.put("pet", pet);
@@ -95,5 +96,6 @@ class VisitController {
 		this.owners.save(owner);
 		return "redirect:/owners/{ownerId}";
 	}
+
 
 }

@@ -105,4 +105,8 @@ public class OwnerService{
 		mav.addObject(owner);
 		return mav;
 	}
+
+	public void save(Owner owner){
+		owners.save(owner);
+	}
 }
